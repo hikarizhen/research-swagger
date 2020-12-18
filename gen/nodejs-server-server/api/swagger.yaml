@@ -1,0 +1,26 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Greeting Server sample"
+paths:
+  /hello:
+    get:
+      operationId: "getGreeting"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "defaults to HelloWorld if not given"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "returns a greeting"
+          schema:
+            type: "string"
+            description: "contains the actual greeting as plain text"
+      x-swagger-router-controller: "Default"
+    x-swagger-router-controller: "greet"
+definitions: {}
