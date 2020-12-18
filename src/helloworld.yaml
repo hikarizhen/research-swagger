@@ -1,22 +1,23 @@
 swagger: '2.0'
 info:
   version: 1.0.0
-  title: Greeting Server
+  title: "Greeting Server sample"
 paths:
   /hello:
+    x-swagger-router-controller: greet
     get:
       produces:
-        - text/plain
+      - "application/json"
       parameters:
         - name: name
           required: false
-          type: string
-          in: query
-          description: defaults to World if not given
-      operationId: getGreeting
+          type: "string"
+          in: "query"
+          description: "defaults to HelloWorld if not given"
+      operationId: "getGreeting"
       responses:
         '200':
-          description: returns a greeting
+          description: "returns a greeting"
           schema:
-            type: string
-            description: contains the actual greeting as plain text
+            type: "string"
+            description: "contains the actual greeting as plain text"
