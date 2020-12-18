@@ -28,7 +28,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the hello API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2020-12-17T02:58:24.328Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2020-12-18T01:39:40.716Z")
 public class HelloApi  {
    private final HelloApiService delegate;
 
@@ -56,11 +56,11 @@ public class HelloApi  {
     @GET
     
     
-    @Produces({ "text/plain" })
+    @Produces({ "application/json" })
     @io.swagger.annotations.ApiOperation(value = "", notes = "", response = String.class, tags={  })
     @io.swagger.annotations.ApiResponses(value = { 
         @io.swagger.annotations.ApiResponse(code = 200, message = "returns a greeting", response = String.class) })
-    public Response getGreeting(@ApiParam(value = "defaults to World if not given") @QueryParam("name") String name
+    public Response getGreeting(@ApiParam(value = "defaults to HelloWorld if not given") @QueryParam("name") String name
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.getGreeting(name,securityContext);

@@ -1,0 +1,12 @@
+io/swagger/api/HelloApiService.class
+io/swagger/api/ApiResponseMessage.class
+io/swagger/api/factories/HelloApiServiceFactory.class
+io/swagger/api/NotFoundException.class
+io/swagger/api/Bootstrap.class
+io/swagger/api/RFC3339DateFormat.class
+io/swagger/api/JacksonJsonProvider.class
+io/swagger/api/ApiException.class
+io/swagger/api/HelloApi.class
+io/swagger/api/StringUtil.class
+io/swagger/api/impl/HelloApiServiceImpl.class
+io/swagger/api/ApiOriginFilter.class
