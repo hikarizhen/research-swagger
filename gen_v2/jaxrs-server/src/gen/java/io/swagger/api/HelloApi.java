@@ -63,6 +63,15 @@ public class HelloApi  {
     public Response getGreeting(@ApiParam(value = "defaults to HelloWorld if not given") @QueryParam("name") String name
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.getGreeting(name,securityContext);
+         String p_name = name;
+         if (null == name) {
+            p_name = "";
+         }
+         if ("".equals(p_name)) {
+            p_name = "hello swagger";
+         } else {
+            p_name = "hello " + p_name;
+         }
+         return delegate.getGreeting(p_name,securityContext);
     }
 }

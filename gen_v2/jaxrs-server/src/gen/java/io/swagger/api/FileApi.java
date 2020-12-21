@@ -57,17 +57,16 @@ public class FileApi  {
     @GET
     @Path("/{fileId}")
     
-    @Produces({ "application/xml", "application/json" })
+    @Produces({ "application/json" })
     @io.swagger.annotations.ApiOperation(value = "Find file by ID", notes = "Returns a file information", response = FWFile.class, tags={ "file", })
     @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = FWFile.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 400, message = "Invalid ID supplied", response = Void.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 404, message = "File not found", response = Void.class) })
+    @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = FWFile.class),
+    @io.swagger.annotations.ApiResponse(code = 400, message = "Invalid ID supplied", response = Void.class),
+    @io.swagger.annotations.ApiResponse(code = 404, message = "File not found", response = Void.class) })
     public Response getFileById(@ApiParam(value = "ID of file to return",required=true) @PathParam("fileId") String fileId
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
+        System.out.println(">>>FileApi#getFileById fileId=" + fileId);
         return delegate.getFileById(fileId,securityContext);
     }
 }

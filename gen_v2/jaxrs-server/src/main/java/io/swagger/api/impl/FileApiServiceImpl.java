@@ -20,6 +20,21 @@ public class FileApiServiceImpl extends FileApiService {
     @Override
     public Response getFileById(String fileId, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+        System.out.println(">>>FileApiServiceImpl#getFileById fileId=" + fileId);
+
+        if ("1".equals(fileId)) {
+            FWFile file = new FWFile();
+            file.setId("20201220001");
+            file.setName("file_sample");
+            file.setStatus(FWFile.StatusEnum.AVAILABLE);
+            
+            System.out.println(">>>FileApiServiceImpl#getFileById simulate file is generated.");
+
+            return Response.ok().entity(file).build();
+        } else if ("2".equals(fileId)) {
+            return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.WARNING, "file is not found.")).build();
+        } else {
+            return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.ERROR, "some error is raised.")).build();
+        }
     }
 }

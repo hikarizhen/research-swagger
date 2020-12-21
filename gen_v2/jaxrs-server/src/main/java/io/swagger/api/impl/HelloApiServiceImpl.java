@@ -19,6 +19,6 @@ public class HelloApiServiceImpl extends HelloApiService {
     @Override
     public Response getGreeting( String name, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, name)).build();
     }
 }
