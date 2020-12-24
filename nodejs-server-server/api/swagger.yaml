@@ -1,0 +1,72 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Greeting Server sample"
+paths:
+  /hello:
+    get:
+      operationId: "getGreeting"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "defaults to HelloWorld if not given"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "returns a greeting"
+          schema:
+            type: "string"
+            description: "contains the actual greeting as plain text"
+      x-swagger-router-controller: "Default"
+    x-swagger-router-controller: "greet"
+  /file/{fileId}:
+    get:
+      tags:
+      - "file"
+      summary: "Find file by ID"
+      description: "Returns a file information"
+      operationId: "getFileById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "fileId"
+        in: "path"
+        description: "ID of file to return"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/FWFile"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "File not found"
+      x-swagger-router-controller: "File"
+definitions:
+  FWFile:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "string"
+        example: "20201217001"
+      name:
+        type: "string"
+        example: "swagger intro"
+      status:
+        type: "string"
+        description: "file status"
+        enum:
+        - "available"
+        - "deleted"
+    example:
+      name: "swagger intro"
+      id: "20201217001"
+      status: "available"
