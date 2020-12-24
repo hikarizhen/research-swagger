@@ -8,13 +8,21 @@
  **/
 exports.getGreeting = function(name) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = "";
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
+    console.log(">>>DefaultService#Promise name=" + name);
+    var rtn = {};
+    var p_name = new String(name);
+
+    if (p_name == 'undefined' || p_name == '') {
+      rtn['application/json'] =  {
+        "message" : "HelloWorld"
+      };
     } else {
-      resolve();
+      rtn['application/json'] =  {
+        "message" : "hello " + p_name
+      };
     }
+
+    resolve(rtn[Object.keys(rtn)[0]]);
   });
 }
 
