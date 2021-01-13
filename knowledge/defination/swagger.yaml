@@ -1,0 +1,196 @@
+---
+swagger: "2.0"
+info:
+  version: "0.00.01"
+  title: "IMF binary API"
+paths:
+  /version:
+    get:
+      operationId: "version"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "returns imf version"
+          schema:
+            type: "string"
+            description: "imf version"
+    x-swagger-router-controller: "version"
+  /binary:
+    get:
+      summary: "get file by fileId"
+      description: "get file by fileId"
+      operationId: "getFileById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "searchInfo"
+        in: "body"
+        description: "search condition"
+        required: true
+        schema:
+          "$ref" : "#/definitions/FWSearchInfo"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            "$ref" : "#/definitions/FWAllFileInfo"
+        "500":
+          schema:
+            "$ref" : "#/definitions/FWDataStroeException"
+          description: "Exception"
+      x-swagger-router-controller: "getFile"
+    delete:
+      summary: "delete a file from datastore by fileId"
+      description: "delete a file from datastore by fileId"
+      operationId: "remove"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "searchInfo"
+        in: "body"
+        description: "search condition"
+        required: true
+        schema:
+          "$ref" : "#/definitions/FWSearchInfo"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "string"
+            description: "file is deleted."
+        "500":
+          schema:
+            "$ref" : "#/definitions/FWDataStroeException"
+          description: "Exception"
+      x-swagger-router-controller: "remove"
+    put:
+      summary: "put a binary file to the datastore"
+      description: ""
+      operationId: "uploadFile"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "fileName"
+        in: "formData"
+        description: "fileName"
+        required: true
+        type: "string"
+      - name: "tag"
+        in: "formData"
+        description: "tag"
+        required: false
+        type: "string"
+      - name: "expiredDate"
+        in: "formData"
+        description: "expiredDate"
+        required: true
+        type: "integer"
+      - name: "in"
+        in: "formData"
+        description: "file to upload"
+        required: false
+        type: "file"
+      responses:
+        "200":
+          description: "fileId will be returned."
+          schema:
+            type: "string"
+            description: "fileId will be returned."
+        "500":
+          schema:
+            "$ref" : "#/definitions/FWDataStroeException"
+          description: "Exception"
+      x-swagger-router-controller: "put"
+  /binary/fileInfo:
+    get:
+      summary: "get file information by fileId"
+      description: "get file information by fileId"
+      operationId: "getFileInfo"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "searchInfo"
+        in: "body"
+        description: "search condition"
+        required: true
+        schema:
+          "$ref" : "#/definitions/FWSearchInfo"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            "$ref" : "#/definitions/FWFileInfo"
+        "500":
+          schema:
+            "$ref" : "#/definitions/FWDataStroeException"
+          description: "Exception"
+      x-swagger-router-controller: "getFileInfo"
+definitions:
+  FWSearchInfo:
+    type: "object"
+    required:
+      - "fileId"
+    properties:
+      fileId:
+        type: "string"
+        example: "/1/path/somedata.sql"
+      targetId:
+        type: "string"
+        example: "petstore"
+  FWAllFileInfo:
+    type: "object"
+    properties:
+      fileData: 
+        type: "string"
+        example: "SGVsbG8gV29ybGQg44GT44KT44Gr44Gh44Gv"
+      fileInfo:
+        "$ref" : "#/definitions/FWFileInfo"
+  FWFileInfo:
+    type: "object"
+    properties:
+      name :
+        type: "string"
+        example: ""
+      size :
+        type: integer
+        example: ""
+      applicationId :
+        type: "string"
+        example: ""
+      tag :
+        type: "string"
+        example: ""
+      targetGroupId :
+        type: "string"
+        example: ""
+      createDate :
+        type: "string"
+        example: ""
+    example:
+      name: "/1/sample.pdf"
+      size: 1566681
+      applicationId: "imf-tools"
+      tag: ""
+      targetGroupId: "petstore"
+      createDate: "2018/11/14 16:48:11.127"
+  FWDataStroeException:
+    type: "object"
+    required:
+    - "message"
+    properties:
+      message :
+        type: "string"
+        example: ""
+      cause :
+        type: "string"
+        example: ""
+      values :
+        type: "string"
+        example: ""
+    example:
+      message: "エラーメッセージ"
+      cause: "原因"
+      values: "埋め込み値"
